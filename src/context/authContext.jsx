@@ -21,9 +21,9 @@ export const AuthProvider = ({ children }) => {
   // check token
   useEffect(() => {
     async function checkLogin() {
-      const cookies = Cookies.get()
-      console.log(cookies.token)
-      if (cookies.token) {
+      const token = Cookies.get('token')
+      console.log(token)
+      if (token) {
         try {
 
           const res = await verifyToken()
