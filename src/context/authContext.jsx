@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     async function checkLogin() {
       const token = Cookies.get('token')
-      console.log(token)
+      // console.log(token)
       if (token) {
         try {
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
       const res = await registerRequest(user)
       // console.log(res)
       setUser(res.data.user)
-      console.log(user)
+      // console.log(user)
       setIsAuthenticated(true)
     } catch (error) {
       setError(error.response.data)
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
       const res = await loginRequest(user)
       // console.log(res)
       setUser(user)
-      console.log(res.data)
+      // console.log(res.data)
       const { token } = Cookies.get()
       if (!token) Cookies.set('token', res.data.payload)
       setIsAuthenticated(true)
