@@ -76,6 +76,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await logoutRequest()
+      Cookies.remove('token')
       setUser(null)
       setIsAuthenticated(false)
     } catch (error) {
