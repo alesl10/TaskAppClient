@@ -17,6 +17,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
+
 
   // check token
   useEffect(() => {
@@ -43,6 +46,7 @@ export const AuthProvider = ({ children }) => {
 
   // register
   const signup = async (user) => {
+    setIsLoading(true)
     try {
 
       const res = await registerRequest(user)
@@ -50,14 +54,20 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data.user)
       // console.log(user)
       setIsAuthenticated(true)
+      setIsLoading(false)
     } catch (error) {
       setError(error.response.data)
+      setIsLoading(false)
+      setTimeout(() => { setError([]) }, 3000)
       console.log(error.response)
     }
   }
 
   // login
   const signin = async (user) => {
+
+    setIsLoading(true)
+
     try {
 
       const res = await loginRequest(user)
@@ -68,11 +78,16 @@ export const AuthProvider = ({ children }) => {
         const { token } = Cookies.get()
         if (!token) Cookies.set('token', res.data.payload)
         setIsAuthenticated(true)
+        setIsLoading(false)
+        setTimeout(() => { setError([]) }, 3000)
       }
       console.log(error)
     } catch (error) {
+      setIsLoading(false)
       console.log(error.response.data)
       setError(error.response.data)
+      setTimeout(() => { setError([]) }, 3000)
+
     }
   }
 
@@ -96,7 +111,8 @@ export const AuthProvider = ({ children }) => {
       user,
       isAuthenticated,
       error,
-      logout
+      logout,
+      isLoading
     }}>
       {children}
     </AuthContext.Provider>

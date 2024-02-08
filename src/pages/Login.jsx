@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 
 function Login() {
 
-  const { signin, isAuthenticated, error } = UseAuth()
+  const { signin, isAuthenticated, error, isLoading } = UseAuth()
   const { register, handleSubmit, formState: { errors } } = useForm()
   const navigate = useNavigate()
   const onSubmit = handleSubmit(async values => signin(values))
@@ -22,35 +22,39 @@ function Login() {
     <div className='max-w-md m-auto my-10'>
 
       <h2 className=' text-blue-700 font-bold text-2xl mb-2'>Login</h2>
+      {
+        isLoading ? <h3 className=' text-3xl text-center'>Cargando...</h3> :
 
-      <div className='border-2 border-[#f9b000] bg-blue-200 p-10 rounded-lg'>
-        {
-          error.map((error, i) => (
-            <div className=' bg-red-600 text-white' key={i}><p>{error}</p></div>
-          ))
-        }
-        <form onSubmit={onSubmit}>
-          <input placeholder='email'
-            type="email" {...register("email", { required: true })}
-            className='w-full px-4 py-2 mb-2 bg-blue-500 text-yellow-300 rounded-md'
-          />
-          {
-            errors.username && <p>username is required</p>
-          }
+          <div className='border-2 border-[#f9b000] bg-blue-200 p-10 rounded-lg'>
+            {
+              error.map((error, i) => (
+                <div className=' bg-red-600 text-white' key={i}><p>{error}</p></div>
+              ))
+            }
+            <form onSubmit={onSubmit}>
+              <input placeholder='email'
+                type="email" {...register("email", { required: true })}
+                className='w-full px-4 py-2 mb-2 bg-blue-500 text-yellow-300 rounded-md'
+              />
+              {
+                errors.username && <p>username is required</p>
+              }
 
-          <input placeholder='password'
-            type="password" {...register("password", { required: true })}
-            className='w-full px-4 py-2 mb-2 bg-blue-500 text-yellow-300 rounded-md' />
-          {
-            errors.username && <p>username is required</p>
-          }
+              <input placeholder='password'
+                type="password" {...register("password", { required: true })}
+                className='w-full px-4 py-2 mb-2 bg-blue-500 text-yellow-300 rounded-md' />
+              {
+                errors.username && <p>username is required</p>
+              }
 
-          <button className=' px-4 font-semibold bg-blue-500 text-yellow-300 rounded-md'>Login</button>
-        </form>
-        <div className='flex items-center'>
-          <p className='text-blue-700 font-semibold'>¿ sos nuevo y no tenes una cuenta todavia ? </p> <Link className='px-4 font-semibold bg-red-600 text-yellow-300 rounded-md' to="/register">Registrate</Link>
-        </div>
-      </div>
+              <button className=' px-4 font-semibold bg-blue-500 text-yellow-300 rounded-md'>Login</button>
+            </form>
+            <div className='flex items-center'>
+              <p className='text-blue-700 font-semibold'>¿ sos nuevo y no tenes una cuenta todavia ? </p> <Link className='px-4 font-semibold bg-red-600 text-yellow-300 rounded-md' to="/register">Registrate</Link>
+            </div>
+          </div>
+      }
+
     </div>
   )
 }

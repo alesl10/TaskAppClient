@@ -13,6 +13,7 @@ export const UseTask = () => {
 
 export const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     // crear tarea
     const createTask = async (task) => {
@@ -27,9 +28,11 @@ export const TaskProvider = ({ children }) => {
 
     // obtener tareas
     const getTasks = async () => {
+        setIsLoading(true)
         try {
             const res = await getTasksRequest()
             setTasks(res.data)
+            setIsLoading(false)
             // console.log(tasks)
 
         } catch (error) {
@@ -77,7 +80,8 @@ export const TaskProvider = ({ children }) => {
             setTasks,
             deleteTask,
             deleteAll,
-            updateTask
+            updateTask,
+            isLoading
         }}>
             {children}
         </TaskContext.Provider>
