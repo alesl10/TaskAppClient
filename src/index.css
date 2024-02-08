@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background: #14135551;
+    color: white;
+    font-family: 'Onest',
+        sans-serif;
+}
+
+p::-webkit-scrollbar {
+    display: none;
+}
