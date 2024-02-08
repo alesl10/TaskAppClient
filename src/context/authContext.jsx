@@ -62,14 +62,17 @@ export const AuthProvider = ({ children }) => {
 
       const res = await loginRequest(user)
       // console.log(res)
-      setUser(user)
-      // console.log(res.data)
-      const { token } = Cookies.get()
-      if (!token) Cookies.set('token', res.data.payload)
-      setIsAuthenticated(true)
-    } catch (error) {
-      // setError(error.response.data)
+      if (res.status === 200) {
+        setUser(user)
+        // console.log(res.data)
+        const { token } = Cookies.get()
+        if (!token) Cookies.set('token', res.data.payload)
+        setIsAuthenticated(true)
+      }
       console.log(error)
+    } catch (error) {
+      console.log(error.response.data)
+      setError(error.response.data)
     }
   }
 

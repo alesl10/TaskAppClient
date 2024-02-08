@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 
 
 
-function Login ()  {
+function Login() {
 
   const { signin, isAuthenticated, error } = UseAuth()
   const { register, handleSubmit, formState: { errors } } = useForm()
@@ -23,12 +23,12 @@ function Login ()  {
 
       <h2 className=' text-blue-700 font-bold text-2xl mb-2'>Login</h2>
 
-      {
-        error.map((error, i) => (
-          <div className=' bg-red-600 text-white' key={i}>{error}</div>
-        ))
-      }
       <div className='border-2 border-[#f9b000] bg-blue-200 p-10 rounded-lg'>
+        {
+          error.map((error, i) => (
+            <div className=' bg-red-600 text-white' key={i}><p>{error}</p></div>
+          ))
+        }
         <form onSubmit={onSubmit}>
           <input placeholder='email'
             type="email" {...register("email", { required: true })}
